@@ -37,6 +37,7 @@
 		</property>
 	</bean>
 	
+	<import resource="disconf.xml"/>
 	<import resource="applicationContext-mybatis.xml"/>
 	<import resource="applicationContext-tx.xml"/>
 </beans>
