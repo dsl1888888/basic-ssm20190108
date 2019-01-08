@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.dorosdebby</groupId>
+	<artifactId>dorosdebby-dao</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.4.5</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>com.alibaba</groupId> -->
+<!-- 		<artifactId>druid</artifactId> -->
+<!-- 		<version>1.0.14</version> -->
+<!-- 	</dependency> -->
+
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>org.mybatis</groupId> -->
+<!-- 		<artifactId>mybatis-spring</artifactId> -->
+<!-- 		<version>1.3.1</version> -->
+<!-- 	</dependency> -->
+
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>mysql</groupId> -->
+<!-- 		<artifactId>mysql-connector-java</artifactId> -->
+<!-- 		<version>5.1.30</version> -->
+<!-- 	</dependency> -->
+
+
+	</dependencies>
+
+
+
+
+	<build>
+		<finalName>dorosdebby-dao</finalName>
+		<resources>
+			<resource>
+				<directory>conf</directory>
+				<includes>
+					<include>**/*.dtd</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xsd</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.dtd</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xsd</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.dtd</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xsd</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/log4j</directory>
+				<includes>
+					<include>**/*.dtd</include>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xsd</include>
+				</includes>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.4</version>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>${basedir}/src/main/java</source>
+									<source>${basedir}/db</source>
+									<source>${basedir}/dbview</source>
+									<source>${basedir}/service</source>
+									<!-- 我们可以通过在这里添加多个source节点，来添加任意多个源文件夹 -->
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+ 
+</project>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dorosdebby.db.mapper.AdminInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dorosdebby.db.model.AdminInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="is_have_admin" property="isHaveAdmin" jdbcType="INTEGER" />
+    <result column="is_disabled" property="isDisabled" jdbcType="INTEGER" />
+    <result column="rolesz" property="rolesz" jdbcType="VARCHAR" />
+    <result column="authorityz" property="authorityz" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, nick_name, real_name, uname, pwd, uuid, is_have_admin, is_disabled, rolesz, authorityz, 
+    create_date, create_by, modify_date, modify_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dorosdebby.db.model.AdminInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dorosdebby.db.model.AdminInfoExample" >
+    delete from admin_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dorosdebby.db.model.AdminInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin_info (nick_name, real_name, uname, 
+      pwd, uuid, is_have_admin, 
+      is_disabled, rolesz, authorityz, 
+      create_date, create_by, modify_date, 
+      modify_by)
+    values (#{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{isHaveAdmin,jdbcType=INTEGER}, 
+      #{isDisabled,jdbcType=INTEGER}, #{rolesz,jdbcType=VARCHAR}, #{authorityz,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dorosdebby.db.model.AdminInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="isHaveAdmin != null" >
+        is_have_admin,
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled,
+      </if>
+      <if test="rolesz != null" >
+        rolesz,
+      </if>
+      <if test="authorityz != null" >
+        authorityz,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="isHaveAdmin != null" >
+        #{isHaveAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="isDisabled != null" >
+        #{isDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="rolesz != null" >
+        #{rolesz,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityz != null" >
+        #{authorityz,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dorosdebby.db.model.AdminInfoExample" resultType="java.lang.Integer" >
+    select count(*) from admin_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null" >
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null" >
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isHaveAdmin != null" >
+        is_have_admin = #{record.isHaveAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDisabled != null" >
+        is_disabled = #{record.isDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolesz != null" >
+        rolesz = #{record.rolesz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorityz != null" >
+        authorityz = #{record.authorityz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyBy != null" >
+        modify_by = #{record.modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_info
+    set id = #{record.id,jdbcType=INTEGER},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      is_have_admin = #{record.isHaveAdmin,jdbcType=INTEGER},
+      is_disabled = #{record.isDisabled,jdbcType=INTEGER},
+      rolesz = #{record.rolesz,jdbcType=VARCHAR},
+      authorityz = #{record.authorityz,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{record.modifyBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dorosdebby.db.model.AdminInfo" >
+    update admin_info
+    <set >
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="isHaveAdmin != null" >
+        is_have_admin = #{isHaveAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled = #{isDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="rolesz != null" >
+        rolesz = #{rolesz,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityz != null" >
+        authorityz = #{authorityz,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dorosdebby.db.model.AdminInfo" >
+    update admin_info
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      is_have_admin = #{isHaveAdmin,jdbcType=INTEGER},
+      is_disabled = #{isDisabled,jdbcType=INTEGER},
+      rolesz = #{rolesz,jdbcType=VARCHAR},
+      authorityz = #{authorityz,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="batchDelete" parameterType="java.lang.Integer" >
+    delete from admin_info where id in (
+    <foreach collection="ids" item="item" index="index" separator="," >
+      #{item}
+    </foreach>
+    )
+  </delete>
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into admin_info (
+    nick_name,
+    real_name,
+    uname,
+    pwd,
+    uuid,
+    is_have_admin,
+    is_disabled,
+    rolesz,
+    authorityz,
+    create_date,
+    create_by,
+    modify_date,
+    modify_by
+    )
+    values
+    <foreach collection="recordList" item="item" index="index" separator="," >
+      (
+      #{item.nickName,jdbcType=VARCHAR},
+      #{item.realName,jdbcType=VARCHAR},
+      #{item.uname,jdbcType=VARCHAR},
+      #{item.pwd,jdbcType=VARCHAR},
+      #{item.uuid,jdbcType=VARCHAR},
+      #{item.isHaveAdmin,jdbcType=INTEGER},
+      #{item.isDisabled,jdbcType=INTEGER},
+      #{item.rolesz,jdbcType=VARCHAR},
+      #{item.authorityz,jdbcType=VARCHAR},
+      #{item.createDate,jdbcType=TIMESTAMP},
+      #{item.createBy,jdbcType=VARCHAR},
+      #{item.modifyDate,jdbcType=TIMESTAMP},
+      #{item.modifyBy,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <update id="batchUpdate" parameterType="java.util.List" >
+    update admin_info 
+    <trim prefix="set" suffixOverrides="," >
+      <trim prefix="nick_name =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.nickName !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.nickName,jdbcType=VARCHAR}
+          </if>
+          <if test="item.nickName ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.nick_name
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="real_name =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.realName !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.realName,jdbcType=VARCHAR}
+          </if>
+          <if test="item.realName ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.real_name
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="uname =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.uname !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.uname,jdbcType=VARCHAR}
+          </if>
+          <if test="item.uname ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.uname
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pwd =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.pwd !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.pwd,jdbcType=VARCHAR}
+          </if>
+          <if test="item.pwd ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.pwd
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="uuid =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.uuid !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.uuid,jdbcType=VARCHAR}
+          </if>
+          <if test="item.uuid ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.uuid
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="is_have_admin =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.isHaveAdmin !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.isHaveAdmin,jdbcType=INTEGER}
+          </if>
+          <if test="item.isHaveAdmin ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.is_have_admin
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="is_disabled =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.isDisabled !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.isDisabled,jdbcType=INTEGER}
+          </if>
+          <if test="item.isDisabled ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.is_disabled
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="rolesz =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.rolesz !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.rolesz,jdbcType=VARCHAR}
+          </if>
+          <if test="item.rolesz ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.rolesz
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="authorityz =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.authorityz !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.authorityz,jdbcType=VARCHAR}
+          </if>
+          <if test="item.authorityz ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.authorityz
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_date =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.createDate !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.createDate,jdbcType=TIMESTAMP}
+          </if>
+          <if test="item.createDate ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.create_date
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_by =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.createBy !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+          </if>
+          <if test="item.createBy ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.create_by
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="modify_date =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.modifyDate !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.modifyDate,jdbcType=TIMESTAMP}
+          </if>
+          <if test="item.modifyDate ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.modify_date
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="modify_by =case id" suffix="end," >
+        <foreach collection="recordList" item="item" index="index" >
+          <if test="item.modifyBy !=null " >
+            when #{item.id,jdbcType=INTEGER} then #{item.modifyBy,jdbcType=VARCHAR}
+          </if>
+          <if test="item.modifyBy ==null " >
+            when #{item.id,jdbcType=INTEGER} then admin_info.modify_by
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in(
+    <foreach collection="recordList" item="item" index="index" separator="," >
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+    )
+  </update>
+</mapper>
